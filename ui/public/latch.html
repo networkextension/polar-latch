@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Latch 服务</title>
+    <link rel="icon" type="image/svg+xml" href="/assets/polaris-logo.svg" />
+    <link rel="icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="/styles.css?v=20260423-readability-1" />
+  </head>
+  <body class="lp-page">
+    <!-- Panel overlay -->
+    <div class="lp-overlay" id="lpOverlay"></div>
+
+    <div class="lp-app">
+      <!-- ── Sidebar ── -->
+      <aside class="lp-sidebar">
+        <a class="lp-brand" href="/dashboard.html" data-site-brand>
+          <img data-site-icon alt="" />
+          <span class="lp-brand-name" data-site-name>Polar-</span>
+        </a>
+
+        <nav class="lp-nav">
+          <a class="lp-nav-item" href="/dashboard.html">
+            <span class="lp-nav-icon" data-icon="layout-dashboard">⊞</span><span>Dashboard</span>
+          </a>
+          <a class="lp-nav-item" href="/teams.html">
+            <span class="lp-nav-icon" data-icon="users-round">⌂</span><span data-i18n="nav.teams">工作区</span>
+          </a>
+          <a class="lp-nav-item" href="/posts.html">
+            <span class="lp-nav-icon" data-icon="message-square">◎</span><span>Posts</span>
+          </a>
+          <a class="lp-nav-item" href="/markdowns.html">
+            <span class="lp-nav-icon" data-icon="file-text">◈</span><span>Markdowns</span>
+          </a>
+          <a class="lp-nav-item" href="/rooms.html">
+            <span class="lp-nav-icon" data-icon="users">👥</span><span>群聊</span>
+          </a>
+          <a class="lp-nav-item" href="/chat.html">
+            <span class="lp-nav-icon" data-icon="message-circle">◉</span><span>Chat</span>
+          </a>
+          <a class="lp-nav-item" href="/creation.html">
+            <span class="lp-nav-icon" data-icon="pen-line">✍</span><span data-i18n="nav.creation">Creation</span>
+          </a>
+          <a class="lp-nav-item" href="/hosts.html">
+            <span class="lp-nav-icon" data-icon="server">▣</span><span data-i18n="nav.hosts">主机</span>
+          </a>
+          <a class="lp-nav-item" href="/editor.html">
+            <span class="lp-nav-icon" data-icon="code">✎</span><span>Editor</span>
+          </a>
+          <a class="lp-nav-item" href="/llm-billing.html">
+            <span class="lp-nav-icon" data-icon="dollar-sign">¤</span><span>LLM 计费</span>
+          </a>
+          <a class="lp-nav-item" href="/expense.html">
+            <span class="lp-nav-icon" data-icon="receipt">💰</span><span>家庭账本</span>
+          </a>
+          <a class="lp-nav-item active" href="/latch.html" hidden data-admin-nav>
+            <span class="lp-nav-icon" data-icon="settings">⚙</span><span data-i18n="nav.latch">Latch</span>
+          </a>
+          <a class="lp-nav-item" href="/bots.html" hidden data-admin-nav>
+            <span class="lp-nav-icon" data-icon="bot">◉</span><span data-i18n="nav.bots">Bot Management</span>
+          </a>
+          <a class="lp-nav-item" href="/admin-plugins.html" hidden data-admin-nav>
+            <span class="lp-nav-icon" data-icon="puzzle">🧩</span><span>Plugin 注册</span>
+          </a>
+          <a class="lp-nav-item" href="/wg-tokens.html" hidden data-admin-nav>
+            <span class="lp-nav-icon" data-icon="network">🔐</span><span>WG Mesh</span>
+          </a>
+          <a class="lp-nav-item" href="/proxy-tokens.html" hidden data-admin-nav>
+            <span class="lp-nav-icon" data-icon="key">🔑</span><span>API Tokens</span>
+          </a>
+          <a class="lp-nav-item" href="/prompts.html" hidden data-admin-nav>
+            <span class="lp-nav-icon" data-icon="sparkles">✦</span><span>Prompt 模板</span>
+          </a>
+          <a class="lp-nav-item" href="/grafana/" target="_blank" rel="noopener" hidden data-admin-nav>
+            <span class="lp-nav-icon" data-icon="line-chart">📊</span><span>Grafana</span>
+          </a>
+          <a class="lp-nav-item" href="/admin.html" hidden data-admin-nav>
+            <span class="lp-nav-icon" data-icon="users-cog">☍</span><span data-i18n="nav.userAdmin">用户管理</span>
+          </a>
+        </nav>
+
+        <div class="lp-sidebar-foot">
+          <div class="lp-foot-avatar" id="lpFootAvatar">U</div>
+          <div class="lp-foot-info">
+            <div class="lp-foot-name" id="lpFootName">Loading...</div>
+            <div class="lp-foot-role" id="lpFootRole">—</div>
+          </div>
+          <div class="lp-sidebar-foot-actions">
+            <button class="lp-foot-icon-btn" type="button" data-open-settings-center data-settings-target="personalization" title="Settings" data-i18n-tooltip="nav.settings"><span data-icon="settings"></span></button>
+            <button id="logoutBtn" class="lp-foot-icon-btn" type="button" title="Log out"><span data-icon="log-out"></span></button>
+          </div>
+        </div>
+      </aside>
+
+      <!-- ── Main ── -->
+      <div class="lp-main">
+        <!-- Top tabs -->
+        <div class="lp-topbar">
+          <button class="lp-tab active" type="button" id="latchTabProxies" data-latch-tab="proxies">
+            <span class="lp-tab-icon">◈</span> Proxy
+          </button>
+          <button class="lp-tab" type="button" id="latchTabRules" data-latch-tab="rules">
+            <span class="lp-tab-icon">≡</span> Rules
+          </button>
+          <button class="lp-tab" type="button" id="latchTabProfiles" data-latch-tab="profiles">
+            <span class="lp-tab-icon">◉</span> Profiles
+          </button>
+          <div class="lp-topbar-end">
+            <span class="lp-mode-badge" id="latchWelcome">Loading...</span>
+            <a class="lp-topbar-back" href="/dashboard.html">← Dashboard</a>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="lp-content">
+
+          <!-- ===== PROXY PANEL ===== -->
+          <div data-latch-panel="proxies" id="latchPanelProxies">
+            <div class="lp-toolbar">
+              <button class="lp-add-btn" type="button" id="lpAddProxyBtn">＋ Add Proxy</button>
+              <div class="lp-search-wrap">
+                <span class="lp-search-icon">⌕</span>
+                <input type="text" placeholder="Search proxies..." id="lpProxySearch" />
+              </div>
+            </div>
+
+            <div class="lp-section">
+              <div class="lp-section-head">
+                <span class="lp-section-title">Service Nodes</span>
+                <button class="lp-add-btn" type="button" id="lpAddServiceNodeBtn">＋ Add Service Node</button>
+              </div>
+              <table class="lp-table">
+                <thead>
+                  <tr>
+                    <th>Name / Address</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Last Update</th>
+                    <th>Created</th>
+                    <th>Actions ◆</th>
+                  </tr>
+                </thead>
+                <tbody id="latchServiceNodeList"></tbody>
+              </table>
+              <div id="latchServiceNodeStatus" class="status-text" style="margin-top:8px;padding:0 4px;"></div>
+            </div>
+
+            <div class="lp-section">
+              <div class="lp-section-head">
+                <span class="lp-section-title">Proxy List</span>
+                <button class="lp-dot-btn" type="button">···</button>
+              </div>
+              <table class="lp-table">
+                <thead>
+                  <tr>
+                    <th>Type ◆</th>
+                    <th>Status</th>
+                    <th>Version / SHA1</th>
+                    <th>Actions ◆</th>
+                  </tr>
+                </thead>
+                <tbody id="latchProxyList"></tbody>
+              </table>
+              <div id="latchProxyStatus" class="status-text" style="margin-top:8px;padding:0 4px;"></div>
+            </div>
+
+            <!-- Advanced Configuration -->
+            <div class="lp-section">
+              <div class="lp-section-head">
+                <span class="lp-section-title">Advanced Configuration</span>
+              </div>
+              <div class="lp-adv-grid">
+                <div class="lp-adv-card">
+                  <div class="lp-adv-icon blue">🗂</div>
+                  <div class="lp-adv-title">Rule Groups</div>
+                  <div class="lp-adv-desc">Manage routing rule groups and apply them across profiles.</div>
+                  <div class="lp-adv-foot">
+                    <button class="lp-manage-btn" type="button" id="lpGoRules">Manage ▾</button>
+                  </div>
+                </div>
+                <div class="lp-adv-card">
+                  <div class="lp-adv-icon orange">📋</div>
+                  <div class="lp-adv-title">Rule Templates</div>
+                  <div class="lp-adv-desc">Upload or edit inline rule files for traffic routing.</div>
+                  <div class="lp-adv-foot">
+                    <button class="lp-manage-btn" type="button" id="lpGoRulesAlt">Manage ▾</button>
+                  </div>
+                </div>
+                <div class="lp-adv-card">
+                  <div class="lp-adv-icon purple">🔷</div>
+                  <div class="lp-adv-title">Profile Templates</div>
+                  <div class="lp-adv-desc">Shared profiles visible to all logged-in users.</div>
+                  <div class="lp-adv-foot">
+                    <button class="lp-manage-btn" type="button" id="lpGoProfiles">Manage ▾</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- ===== RULES PANEL ===== -->
+          <div data-latch-panel="rules" hidden id="latchPanelRules">
+            <div class="lp-toolbar">
+              <button class="lp-add-btn" type="button" id="lpAddRuleBtn">＋ Add Rule</button>
+              <div class="lp-search-wrap">
+                <span class="lp-search-icon">⌕</span>
+                <input type="text" placeholder="Search rules..." id="lpRuleSearch" />
+              </div>
+            </div>
+
+            <div class="lp-section">
+              <div class="lp-section-head">
+                <span class="lp-section-title">Rule List</span>
+                <button class="lp-dot-btn" type="button">···</button>
+              </div>
+              <table class="lp-table">
+                <thead>
+                  <tr>
+                    <th>Name ◆</th>
+                    <th>Lines</th>
+                    <th>Version</th>
+                    <th>Updated</th>
+                    <th>Actions ◆</th>
+                  </tr>
+                </thead>
+                <tbody id="latchRuleList"></tbody>
+              </table>
+              <div id="latchRuleStatus" class="status-text" style="margin-top:8px;padding:0 4px;"></div>
+            </div>
+          </div>
+
+          <!-- ===== PROFILES PANEL ===== -->
+          <div data-latch-panel="profiles" hidden id="latchPanelProfiles">
+            <!-- Admin grid -->
+            <div id="latchProfileAdminGrid">
+              <div class="lp-toolbar">
+                <button class="lp-add-btn" type="button" id="lpAddProfileBtn">＋ Add Profile</button>
+              </div>
+              <div class="lp-section">
+                <div class="lp-section-head">
+                  <span class="lp-section-title">Profile List</span>
+                  <button class="lp-dot-btn" type="button">···</button>
+                </div>
+                <table class="lp-table">
+                  <thead>
+                    <tr>
+                      <th>Name ◆</th>
+                      <th>Proxies</th>
+                      <th>Rule</th>
+                      <th>Flags</th>
+                      <th>Actions ◆</th>
+                    </tr>
+                  </thead>
+                  <tbody id="latchProfileList"></tbody>
+                </table>
+                <div id="latchProfileStatus" class="status-text" style="margin-top:8px;padding:0 4px;"></div>
+              </div>
+            </div>
+
+            <!-- User read-only -->
+            <div id="latchProfileUserView" hidden>
+              <div class="lp-section">
+                <div class="lp-section-head">
+                  <span class="lp-section-title">Available Profiles</span>
+                </div>
+                <p style="font-size:13px;color:#999;margin-bottom:16px;">
+                  Shared profiles with resolved proxies and routing rules.
+                </p>
+                <div id="latchProfileUserList" class="lp-user-cards"></div>
+              </div>
+            </div>
+          </div>
+
+        </div><!-- /lp-content -->
+      </div><!-- /lp-main -->
+    </div><!-- /lp-app -->
+
+    <!-- ===== PROXY SLIDE PANEL ===== -->
+    <div class="lp-panel" id="lpProxyPanel">
+      <div class="lp-panel-head">
+        <span class="lp-panel-title" id="latchProxyFormTitle">Add Proxy</span>
+        <button class="lp-panel-close" type="button" id="lpProxyClose">✕</button>
+      </div>
+      <div class="lp-panel-body">
+        <div class="lp-field">
+          <label class="lp-label">名称</label>
+          <input id="latchProxyNameInput" class="lp-input" type="text" maxlength="80" placeholder="例如 Tokyo-SS3" />
+        </div>
+        <div class="lp-field">
+          <label class="lp-label">类型</label>
+          <select id="latchProxyTypeSelect" class="lp-input">
+            <option value="ss">ss</option>
+            <option value="ss3">ss3</option>
+            <option value="kcp_over_http">kcp_over_http</option>
+            <option value="kcp_over_ss">kcp_over_ss</option>
+            <option value="kcp_over_ss3">kcp_over_ss3</option>
+            <option value="wireguard">wireguard</option>
+          </select>
+        </div>
+        <div class="lp-field">
+          <label class="lp-label">从服务节点复制</label>
+          <div class="lp-inline-row">
+            <select id="latchProxyFromNodeSelect" class="lp-input"></select>
+            <button id="latchProxyCopyNodeBtn" class="lp-manage-btn" type="button">Copy</button>
+          </div>
+        </div>
+        <div class="lp-field" style="flex:1;">
+          <label class="lp-label">配置 JSON</label>
+          <textarea id="latchProxyConfigInput" class="lp-input lp-textarea" rows="14"
+            placeholder='{"server":"1.2.3.4","server_port":8388,"password":"secret","method":"aes-256-gcm"}'></textarea>
+        </div>
+      </div>
+      <div class="lp-panel-foot">
+        <button id="latchProxySubmitBtn" class="lp-add-btn" type="button" style="flex:1;">保存代理</button>
+        <button id="latchProxyResetBtn" class="lp-manage-btn" type="button">清空</button>
+      </div>
+    </div>
+
+    <!-- ===== RULE SLIDE PANEL ===== -->
+    <div class="lp-panel" id="lpRulePanel">
+      <div class="lp-panel-head">
+        <span class="lp-panel-title" id="latchRuleFormTitle">Add Rule</span>
+        <button class="lp-panel-close" type="button" id="lpRuleClose">✕</button>
+      </div>
+      <div class="lp-panel-body">
+        <div class="lp-field">
+          <label class="lp-label">名称</label>
+          <input id="latchRuleNameInput" class="lp-input" type="text" maxlength="80" placeholder="例如 广告过滤" />
+        </div>
+        <div class="lp-source-tabs">
+          <button id="latchRuleSourceInlineBtn" class="lp-source-tab active" type="button">在线编辑</button>
+          <button id="latchRuleSourceFileBtn" class="lp-source-tab" type="button">上传文件</button>
+        </div>
+        <div id="latchRuleInlineSection" class="lp-field" style="flex:1;">
+          <label class="lp-label">内容</label>
+          <textarea id="latchRuleContentInput" class="lp-input lp-textarea" rows="16"
+            placeholder="# 每行一条规则&#10;DOMAIN-SUFFIX,example.com,PROXY&#10;IP-CIDR,192.168.0.0/16,DIRECT"></textarea>
+        </div>
+        <div id="latchRuleFileSection" hidden>
+          <div class="lp-field">
+            <label class="lp-label">选择文件</label>
+            <input id="latchRuleFileInput" class="lp-input" type="file" accept=".txt,.list,.conf" />
+          </div>
+          <button id="latchRuleUploadBtn" class="lp-add-btn" type="button" style="width:100%;margin-top:8px;justify-content:center;">上传文件</button>
+        </div>
+        <div id="latchRuleStatus" class="status-text"></div>
+      </div>
+      <div class="lp-panel-foot">
+        <button id="latchRuleSubmitBtn" class="lp-add-btn" type="button" style="flex:1;">保存规则</button>
+        <button id="latchRuleResetBtn" class="lp-manage-btn" type="button">清空</button>
+      </div>
+    </div>
+
+    <!-- ===== PROFILE SLIDE PANEL ===== -->
+    <div class="lp-panel" id="lpProfilePanel">
+      <div class="lp-panel-head">
+        <span class="lp-panel-title" id="latchProfileFormTitle">新建配置模板</span>
+        <button class="lp-panel-close" type="button" id="lpProfileClose">✕</button>
+      </div>
+      <div class="lp-panel-body">
+        <div class="lp-field">
+          <label class="lp-label" for="latchProfileNameInput">名称</label>
+          <input id="latchProfileNameInput" class="lp-input" type="text" maxlength="80" placeholder="例如：工作 / 学习 / 社交" />
+        </div>
+        <div class="lp-field">
+          <label class="lp-label" for="latchProfileDescInput">备注</label>
+          <input id="latchProfileDescInput" class="lp-input" type="text" maxlength="200" placeholder="例如：日常办公网络、课堂环境" />
+          <div class="lp-field-hint">备注会展示在列表里，便于快速识别用途。</div>
+        </div>
+
+        <div class="lp-field">
+          <label class="lp-label">配置选项</label>
+        </div>
+        <div class="lp-check-row lp-check-row-card">
+          <label class="lp-check-label">
+            <input id="latchProfileEnabledInput" type="checkbox" checked /> 启用
+          </label>
+          <label class="lp-check-label">
+            <input id="latchProfileShareableInput" type="checkbox" /> 可共享
+          </label>
+        </div>
+        <div class="lp-field-hint">开启“可共享”后，其他用户可在可用配置中看到该模板。</div>
+
+        <div class="lp-field">
+          <label class="lp-label">关联代理（可多选）</label>
+          <div id="latchProfileProxyCheckboxes" class="lp-check-scroll"></div>
+        </div>
+        <div class="lp-field">
+          <label class="lp-label">关联规则（选一条）</label>
+          <div id="latchProfileRuleRadios" class="lp-check-scroll"></div>
+        </div>
+        <div id="latchProfileStatus" class="status-text"></div>
+      </div>
+      <div class="lp-panel-foot">
+        <button id="latchProfileSubmitBtn" class="lp-add-btn" type="button" style="flex:1;">保存配置</button>
+        <button id="latchProfileResetBtn" class="lp-manage-btn" type="button">清空</button>
+      </div>
+    </div>
+
+    <!-- ===== SERVICE NODE SLIDE PANEL ===== -->
+    <div class="lp-panel" id="lpServiceNodePanel">
+      <div class="lp-panel-head">
+        <span class="lp-panel-title" id="latchServiceNodeFormTitle">Add Service Node</span>
+        <button class="lp-panel-close" type="button" id="lpServiceNodeClose">✕</button>
+      </div>
+      <div class="lp-panel-body">
+        <div class="lp-field">
+          <label class="lp-label" for="latchServiceNodeNameInput">节点名称</label>
+          <input id="latchServiceNodeNameInput" class="lp-input" type="text" maxlength="80" placeholder="例如 Tokyo-A" />
+        </div>
+        <div class="lp-inline-grid">
+          <div class="lp-field">
+            <label class="lp-label" for="latchServiceNodeIPInput">IP</label>
+            <input id="latchServiceNodeIPInput" class="lp-input" type="text" placeholder="例如 1.2.3.4" />
+          </div>
+          <div class="lp-field">
+            <label class="lp-label" for="latchServiceNodePortInput">Port</label>
+            <input id="latchServiceNodePortInput" class="lp-input" type="number" min="1" max="65535" value="443" />
+          </div>
+        </div>
+        <div class="lp-inline-grid">
+          <div class="lp-field">
+            <label class="lp-label" for="latchServiceNodeTypeSelect">Proxy Type</label>
+            <select id="latchServiceNodeTypeSelect" class="lp-input">
+              <option value="ss">ss</option>
+              <option value="ss3">ss3</option>
+              <option value="kcp_over_http">kcp_over_http</option>
+              <option value="kcp_over_ss">kcp_over_ss</option>
+              <option value="kcp_over_ss3">kcp_over_ss3</option>
+              <option value="wireguard">wireguard</option>
+            </select>
+          </div>
+          <div class="lp-field">
+            <label class="lp-label" for="latchServiceNodeStatusSelect">Status</label>
+            <select id="latchServiceNodeStatusSelect" class="lp-input">
+              <option value="unknown">unknown</option>
+              <option value="up">up</option>
+              <option value="down">down</option>
+              <option value="degraded">degraded</option>
+            </select>
+          </div>
+        </div>
+        <div class="lp-field">
+          <label class="lp-label" for="latchServiceNodePasteInput">快速粘贴（新手）</label>
+          <textarea
+            id="latchServiceNodePasteInput"
+            class="lp-input lp-textarea"
+            rows="4"
+            placeholder='支持 JSON 或多行 key=value。例如：&#10;name=Tokyo-A&#10;ip=1.2.3.4&#10;port=443&#10;proxy_type=wireguard&#10;wireguard_role=server'
+          ></textarea>
+          <div class="lp-actions" style="margin-top:8px;">
+            <button id="latchServiceNodePasteApplyBtn" class="lp-manage-btn" type="button">应用粘贴内容</button>
+          </div>
+        </div>
+
+        <div class="lp-field" id="latchServiceNodeConfigForm">
+          <label class="lp-label">Config Form</label>
+          <div class="lp-inline-grid">
+            <div class="lp-field">
+              <label class="lp-label" for="latchServiceNodeCfgPassword">Password</label>
+              <input id="latchServiceNodeCfgPassword" class="lp-input" type="text" />
+            </div>
+            <div class="lp-field">
+              <label class="lp-label" for="latchServiceNodeCfgMethod">Method</label>
+              <input id="latchServiceNodeCfgMethod" class="lp-input" type="text" placeholder="aes-256-gcm / chacha20-ietf-poly1305" />
+            </div>
+          </div>
+          <div class="lp-inline-grid">
+            <div class="lp-field">
+              <label class="lp-label" for="latchServiceNodeCfgKey">KCP Key</label>
+              <input id="latchServiceNodeCfgKey" class="lp-input" type="text" />
+            </div>
+            <div class="lp-field">
+              <label class="lp-label" for="latchServiceNodeCfgCrypt">KCP Crypt</label>
+              <input id="latchServiceNodeCfgCrypt" class="lp-input" type="text" placeholder="none / aes" />
+            </div>
+          </div>
+          <div class="lp-inline-grid">
+            <div class="lp-field">
+              <label class="lp-label" for="latchServiceNodeCfgMode">KCP Mode</label>
+              <input id="latchServiceNodeCfgMode" class="lp-input" type="text" placeholder="fast / fast2 / normal" />
+            </div>
+            <div class="lp-field">
+              <label class="lp-label" for="latchServiceNodeCfgMTU">KCP MTU</label>
+              <input id="latchServiceNodeCfgMTU" class="lp-input" type="number" min="1" max="9000" value="1350" />
+            </div>
+          </div>
+          <div class="lp-inline-grid">
+            <div class="lp-field">
+              <label class="lp-label" for="latchServiceNodeCfgPrivateKey">WG Private Key</label>
+              <input id="latchServiceNodeCfgPrivateKey" class="lp-input" type="text" />
+            </div>
+            <div class="lp-field">
+              <label class="lp-label" for="latchServiceNodeCfgPublicKey">WG Public Key</label>
+              <input id="latchServiceNodeCfgPublicKey" class="lp-input" type="text" />
+            </div>
+          </div>
+          <div class="lp-inline-grid">
+            <div class="lp-field">
+              <label class="lp-label" for="latchServiceNodeCfgEndpoint">WG Endpoint</label>
+              <input id="latchServiceNodeCfgEndpoint" class="lp-input" type="text" placeholder="1.2.3.4:51820" />
+            </div>
+            <div class="lp-field">
+              <label class="lp-label" for="latchServiceNodeCfgAllowedIPs">WG Allowed IPs</label>
+              <input id="latchServiceNodeCfgAllowedIPs" class="lp-input" type="text" placeholder="0.0.0.0/0,::/0" />
+            </div>
+          </div>
+          <div class="lp-inline-grid">
+            <div class="lp-field">
+              <label class="lp-label" for="latchServiceNodeCfgWireguardRole">WG Role</label>
+              <select id="latchServiceNodeCfgWireguardRole" class="lp-select">
+                <option value="server" selected>server</option>
+                <option value="client">client</option>
+              </select>
+            </div>
+            <div class="lp-field"></div>
+          </div>
+        </div>
+        <div class="lp-field" style="flex:1;">
+          <label class="lp-label" for="latchServiceNodeConfigInput">Config JSON (Auto)</label>
+          <textarea id="latchServiceNodeConfigInput" class="lp-input lp-textarea" rows="8" readonly></textarea>
+        </div>
+      </div>
+      <div class="lp-panel-foot">
+        <button id="latchServiceNodeSubmitBtn" class="lp-add-btn" type="button" style="flex:1;">保存节点</button>
+        <button id="latchServiceNodeResetBtn" class="lp-manage-btn" type="button">清空</button>
+      </div>
+    </div>
+
+    <script type="module" src="/scripts/latch.js"></script>
+  </body>
+</html>
