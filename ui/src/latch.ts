@@ -23,18 +23,18 @@ import {
   updateLatchServiceNode,
   removeLatchServiceNode,
   issueLatchServiceNodeAgentToken,
-} from "./api/dashboard.js";
-import { hydrateSiteBrand, renderSidebarFoot } from "./lib/site.js";
-import { bindThemeSync, initStoredTheme } from "./lib/theme.js";
-import { byId } from "./lib/dom.js";
-import { logout } from "./api/session.js";
+} from "./api/latch.js";
+import { hydrateSiteBrand, renderSidebarFoot } from "@networkextension/polar-ui-common/lib/site";
+import { bindThemeSync, initStoredTheme } from "@networkextension/polar-ui-common/lib/theme";
+import { byId } from "@networkextension/polar-ui-common/lib/dom";
+import { logout } from "@networkextension/polar-ui-common/api/session";
 import type {
   LatchProxy,
   LatchRule,
   LatchProfile,
   LatchProfileDetail,
   LatchServiceNode,
-} from "./types/dashboard.js";
+} from "./types/latch.js";
 
 // ---------------------------------------------------------------------------
 // DOM refs — layout
