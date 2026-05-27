@@ -222,11 +222,19 @@ func (p *Plugin) heartbeatLoop(ctx context.Context) {
 	}
 }
 
+// latchUIRoutes — sidebar entries this plugin contributes. Heartbeated
+// up to dock; aggregated into /api/plugin-ui-routes for polar-dock-ui's
+// dynamic sidebar. See task #196.
+var latchUIRoutes = []sdk.UIRoute{
+	{Path: "/latch.html", Label: "Latch", Icon: "settings", AdminOnly: true, Order: 70},
+}
+
 func (p *Plugin) beat(_ context.Context) {
 	err := p.Dock.Heartbeat(sdk.HeartbeatOpts{
 		Version:       p.Ver,
 		Endpoint:      p.Listen,
 		UptimeSeconds: int64(time.Since(p.startedAt).Seconds()),
+		UIRoutes:      latchUIRoutes,
 	})
 	if err != nil {
 		log.Printf("latch: heartbeat failed: %v", err)
