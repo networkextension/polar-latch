@@ -95,7 +95,7 @@
             <div class="lp-section">
               <div class="lp-section-head">
                 <span class="lp-section-title">Proxy List</span>
-                <button class="lp-dot-btn" type="button">···</button>
+                <button class="lp-dot-btn" type="button" aria-label="更多操作">···</button>
               </div>
               <table class="lp-table">
                 <thead>
@@ -158,7 +158,7 @@
             <div class="lp-section">
               <div class="lp-section-head">
                 <span class="lp-section-title">Rule List</span>
-                <button class="lp-dot-btn" type="button">···</button>
+                <button class="lp-dot-btn" type="button" aria-label="更多操作">···</button>
               </div>
               <table class="lp-table">
                 <thead>
@@ -186,7 +186,7 @@
               <div class="lp-section">
                 <div class="lp-section-head">
                   <span class="lp-section-title">Profile List</span>
-                  <button class="lp-dot-btn" type="button">···</button>
+                  <button class="lp-dot-btn" type="button" aria-label="更多操作">···</button>
                 </div>
                 <table class="lp-table">
                   <thead>
@@ -223,10 +223,10 @@
     </div><!-- /lp-app -->
 
     <!-- ===== PROXY SLIDE PANEL ===== -->
-    <div class="lp-panel" id="lpProxyPanel">
+    <div class="lp-panel" id="lpProxyPanel" role="dialog" aria-modal="true" aria-labelledby="latchProxyFormTitle">
       <div class="lp-panel-head">
         <span class="lp-panel-title" id="latchProxyFormTitle">Add Proxy</span>
-        <button class="lp-panel-close" type="button" id="lpProxyClose">✕</button>
+        <button class="lp-panel-close" type="button" id="lpProxyClose" aria-label="关闭">✕</button>
       </div>
       <div class="lp-panel-body">
         <div class="lp-field">
@@ -264,10 +264,10 @@
     </div>
 
     <!-- ===== RULE SLIDE PANEL ===== -->
-    <div class="lp-panel" id="lpRulePanel">
+    <div class="lp-panel" id="lpRulePanel" role="dialog" aria-modal="true" aria-labelledby="latchRuleFormTitle">
       <div class="lp-panel-head">
         <span class="lp-panel-title" id="latchRuleFormTitle">Add Rule</span>
-        <button class="lp-panel-close" type="button" id="lpRuleClose">✕</button>
+        <button class="lp-panel-close" type="button" id="lpRuleClose" aria-label="关闭">✕</button>
       </div>
       <div class="lp-panel-body">
         <div class="lp-field">
@@ -299,10 +299,10 @@
     </div>
 
     <!-- ===== PROFILE SLIDE PANEL ===== -->
-    <div class="lp-panel" id="lpProfilePanel">
+    <div class="lp-panel" id="lpProfilePanel" role="dialog" aria-modal="true" aria-labelledby="latchProfileFormTitle">
       <div class="lp-panel-head">
         <span class="lp-panel-title" id="latchProfileFormTitle">新建配置模板</span>
-        <button class="lp-panel-close" type="button" id="lpProfileClose">✕</button>
+        <button class="lp-panel-close" type="button" id="lpProfileClose" aria-label="关闭">✕</button>
       </div>
       <div class="lp-panel-body">
         <div class="lp-field">
@@ -345,10 +345,10 @@
     </div>
 
     <!-- ===== SERVICE NODE SLIDE PANEL ===== -->
-    <div class="lp-panel" id="lpServiceNodePanel">
+    <div class="lp-panel" id="lpServiceNodePanel" role="dialog" aria-modal="true" aria-labelledby="latchServiceNodeFormTitle">
       <div class="lp-panel-head">
         <span class="lp-panel-title" id="latchServiceNodeFormTitle">Add Service Node</span>
-        <button class="lp-panel-close" type="button" id="lpServiceNodeClose">✕</button>
+        <button class="lp-panel-close" type="button" id="lpServiceNodeClose" aria-label="关闭">✕</button>
       </div>
       <div class="lp-panel-body">
         <div class="lp-field">
