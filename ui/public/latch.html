@@ -67,7 +67,7 @@
               <button class="lp-add-btn" type="button" id="lpAddProxyBtn">＋ Add Proxy</button>
               <div class="lp-search-wrap">
                 <span class="lp-search-icon">⌕</span>
-                <input type="text" placeholder="Search proxies..." id="lpProxySearch" />
+                <input type="text" placeholder="Search proxies..." id="lpProxySearch"  aria-label="Search proxies"/>
               </div>
             </div>
 
@@ -95,7 +95,7 @@
             <div class="lp-section">
               <div class="lp-section-head">
                 <span class="lp-section-title">Proxy List</span>
-                <button class="lp-dot-btn" type="button">···</button>
+                <button class="lp-dot-btn" type="button" aria-label="更多操作">···</button>
               </div>
               <table class="lp-table">
                 <thead>
@@ -151,14 +151,14 @@
               <button class="lp-add-btn" type="button" id="lpAddRuleBtn">＋ Add Rule</button>
               <div class="lp-search-wrap">
                 <span class="lp-search-icon">⌕</span>
-                <input type="text" placeholder="Search rules..." id="lpRuleSearch" />
+                <input type="text" placeholder="Search rules..." id="lpRuleSearch"  aria-label="Search rules"/>
               </div>
             </div>
 
             <div class="lp-section">
               <div class="lp-section-head">
                 <span class="lp-section-title">Rule List</span>
-                <button class="lp-dot-btn" type="button">···</button>
+                <button class="lp-dot-btn" type="button" aria-label="更多操作">···</button>
               </div>
               <table class="lp-table">
                 <thead>
@@ -186,7 +186,7 @@
               <div class="lp-section">
                 <div class="lp-section-head">
                   <span class="lp-section-title">Profile List</span>
-                  <button class="lp-dot-btn" type="button">···</button>
+                  <button class="lp-dot-btn" type="button" aria-label="更多操作">···</button>
                 </div>
                 <table class="lp-table">
                   <thead>
@@ -223,18 +223,18 @@
     </div><!-- /lp-app -->
 
     <!-- ===== PROXY SLIDE PANEL ===== -->
-    <div class="lp-panel" id="lpProxyPanel">
+    <div class="lp-panel" id="lpProxyPanel" role="dialog" aria-modal="true" aria-labelledby="latchProxyFormTitle">
       <div class="lp-panel-head">
         <span class="lp-panel-title" id="latchProxyFormTitle">Add Proxy</span>
-        <button class="lp-panel-close" type="button" id="lpProxyClose">✕</button>
+        <button class="lp-panel-close" type="button" id="lpProxyClose" aria-label="关闭">✕</button>
       </div>
       <div class="lp-panel-body">
         <div class="lp-field">
-          <label class="lp-label">名称</label>
+          <label class="lp-label" for="latchProxyNameInput">名称</label>
           <input id="latchProxyNameInput" class="lp-input" type="text" maxlength="80" placeholder="例如 Tokyo-SS3" />
         </div>
         <div class="lp-field">
-          <label class="lp-label">类型</label>
+          <label class="lp-label" for="latchProxyTypeSelect">类型</label>
           <select id="latchProxyTypeSelect" class="lp-input">
             <option value="ss">ss</option>
             <option value="ss3">ss3</option>
@@ -245,14 +245,14 @@
           </select>
         </div>
         <div class="lp-field">
-          <label class="lp-label">从服务节点复制</label>
+          <label class="lp-label" for="latchProxyFromNodeSelect">从服务节点复制</label>
           <div class="lp-inline-row">
             <select id="latchProxyFromNodeSelect" class="lp-input"></select>
             <button id="latchProxyCopyNodeBtn" class="lp-manage-btn" type="button">Copy</button>
           </div>
         </div>
         <div class="lp-field" style="flex:1;">
-          <label class="lp-label">配置 JSON</label>
+          <label class="lp-label" for="latchProxyConfigInput">配置 JSON</label>
           <textarea id="latchProxyConfigInput" class="lp-input lp-textarea" rows="14"
             placeholder='{"server":"1.2.3.4","server_port":8388,"password":"secret","method":"aes-256-gcm"}'></textarea>
         </div>
@@ -264,14 +264,14 @@
     </div>
 
     <!-- ===== RULE SLIDE PANEL ===== -->
-    <div class="lp-panel" id="lpRulePanel">
+    <div class="lp-panel" id="lpRulePanel" role="dialog" aria-modal="true" aria-labelledby="latchRuleFormTitle">
       <div class="lp-panel-head">
         <span class="lp-panel-title" id="latchRuleFormTitle">Add Rule</span>
-        <button class="lp-panel-close" type="button" id="lpRuleClose">✕</button>
+        <button class="lp-panel-close" type="button" id="lpRuleClose" aria-label="关闭">✕</button>
       </div>
       <div class="lp-panel-body">
         <div class="lp-field">
-          <label class="lp-label">名称</label>
+          <label class="lp-label" for="latchRuleNameInput">名称</label>
           <input id="latchRuleNameInput" class="lp-input" type="text" maxlength="80" placeholder="例如 广告过滤" />
         </div>
         <div class="lp-source-tabs">
@@ -279,18 +279,18 @@
           <button id="latchRuleSourceFileBtn" class="lp-source-tab" type="button">上传文件</button>
         </div>
         <div id="latchRuleInlineSection" class="lp-field" style="flex:1;">
-          <label class="lp-label">内容</label>
+          <label class="lp-label" for="latchRuleContentInput">内容</label>
           <textarea id="latchRuleContentInput" class="lp-input lp-textarea" rows="16"
             placeholder="# 每行一条规则&#10;DOMAIN-SUFFIX,example.com,PROXY&#10;IP-CIDR,192.168.0.0/16,DIRECT"></textarea>
         </div>
         <div id="latchRuleFileSection" hidden>
           <div class="lp-field">
-            <label class="lp-label">选择文件</label>
+            <label class="lp-label" for="latchRuleFileInput">选择文件</label>
             <input id="latchRuleFileInput" class="lp-input" type="file" accept=".txt,.list,.conf" />
           </div>
           <button id="latchRuleUploadBtn" class="lp-add-btn" type="button" style="width:100%;margin-top:8px;justify-content:center;">上传文件</button>
         </div>
-        <div id="latchRuleStatus" class="status-text"></div>
+        <div id="latchRulePanelStatus" class="status-text"></div>
       </div>
       <div class="lp-panel-foot">
         <button id="latchRuleSubmitBtn" class="lp-add-btn" type="button" style="flex:1;">保存规则</button>
@@ -299,10 +299,10 @@
     </div>
 
     <!-- ===== PROFILE SLIDE PANEL ===== -->
-    <div class="lp-panel" id="lpProfilePanel">
+    <div class="lp-panel" id="lpProfilePanel" role="dialog" aria-modal="true" aria-labelledby="latchProfileFormTitle">
       <div class="lp-panel-head">
         <span class="lp-panel-title" id="latchProfileFormTitle">新建配置模板</span>
-        <button class="lp-panel-close" type="button" id="lpProfileClose">✕</button>
+        <button class="lp-panel-close" type="button" id="lpProfileClose" aria-label="关闭">✕</button>
       </div>
       <div class="lp-panel-body">
         <div class="lp-field">
@@ -336,7 +336,7 @@
           <label class="lp-label">关联规则（选一条）</label>
           <div id="latchProfileRuleRadios" class="lp-check-scroll"></div>
         </div>
-        <div id="latchProfileStatus" class="status-text"></div>
+        <div id="latchProfilePanelStatus" class="status-text"></div>
       </div>
       <div class="lp-panel-foot">
         <button id="latchProfileSubmitBtn" class="lp-add-btn" type="button" style="flex:1;">保存配置</button>
@@ -345,10 +345,10 @@
     </div>
 
     <!-- ===== SERVICE NODE SLIDE PANEL ===== -->
-    <div class="lp-panel" id="lpServiceNodePanel">
+    <div class="lp-panel" id="lpServiceNodePanel" role="dialog" aria-modal="true" aria-labelledby="latchServiceNodeFormTitle">
       <div class="lp-panel-head">
         <span class="lp-panel-title" id="latchServiceNodeFormTitle">Add Service Node</span>
-        <button class="lp-panel-close" type="button" id="lpServiceNodeClose">✕</button>
+        <button class="lp-panel-close" type="button" id="lpServiceNodeClose" aria-label="关闭">✕</button>
       </div>
       <div class="lp-panel-body">
         <div class="lp-field">
