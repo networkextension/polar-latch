@@ -64,6 +64,7 @@ const latchServiceNodeList = byId<HTMLElement>("latchServiceNodeList");
 
 // Rule section
 const latchRuleStatus   = byId<HTMLElement>("latchRuleStatus");
+const latchRulePanelStatus = byId<HTMLElement>("latchRulePanelStatus");
 const latchRuleList     = byId<HTMLElement>("latchRuleList");           // <tbody>
 const lpAddRuleBtn      = byId<HTMLButtonElement>("lpAddRuleBtn");
 const lpRuleSearch      = byId<HTMLInputElement>("lpRuleSearch");
@@ -71,6 +72,7 @@ const lpRuleSearch      = byId<HTMLInputElement>("lpRuleSearch");
 // Profile section (admin)
 const latchProfileAdminGrid = byId<HTMLElement>("latchProfileAdminGrid");
 const latchProfileStatus    = byId<HTMLElement>("latchProfileStatus");
+const latchProfilePanelStatus = byId<HTMLElement>("latchProfilePanelStatus");
 const latchProfileList      = byId<HTMLElement>("latchProfileList");    // <tbody>
 const lpAddProfileBtn       = byId<HTMLButtonElement>("lpAddProfileBtn");
 
@@ -1074,41 +1076,41 @@ function wireAdminEvents(): void {
   latchRuleSubmitBtn.addEventListener("click", async () => {
     const name    = latchRuleNameInput.value.trim();
     const content = latchRuleContentInput.value;
-    if (!name) { setStatus(latchRuleStatus, "请填写规则名称", "error"); return; }
+    if (!name) { setStatus(latchRulePanelStatus, "请填写规则名称", "error"); return; }
     latchRuleSubmitBtn.disabled = true;
-    setStatus(latchRuleStatus, editingRuleGroupId ? "正在更新…" : "正在创建…");
+    setStatus(latchRulePanelStatus, editingRuleGroupId ? "正在更新…" : "正在创建…");
     try {
       const { response, data } = editingRuleGroupId
         ? await updateLatchRule(editingRuleGroupId, { name, content })
         : await createLatchRule({ name, content });
-      if (!response.ok) { setStatus(latchRuleStatus, data.error || "保存失败", "error"); return; }
-      setStatus(latchRuleStatus, data.message || "已保存", "success");
+      if (!response.ok) { setStatus(latchRulePanelStatus, data.error || "保存失败", "error"); return; }
+      setStatus(latchRulePanelStatus, data.message || "已保存", "success");
       closeAllPanels();
       resetRuleForm();
       await loadAdminData();
-    } catch { setStatus(latchRuleStatus, "网络错误，请重试", "error"); }
+    } catch { setStatus(latchRulePanelStatus, "网络错误，请重试", "error"); }
     finally   { latchRuleSubmitBtn.disabled = false; }
   });
 
   latchRuleUploadBtn.addEventListener("click", async () => {
     const name = latchRuleNameInput.value.trim();
     const file = latchRuleFileInput.files?.[0];
-    if (!file) { setStatus(latchRuleStatus, "请先选择文件", "error"); return; }
+    if (!file) { setStatus(latchRulePanelStatus, "请先选择文件", "error"); return; }
     const fd = new FormData();
     if (name) fd.append("name", name);
     fd.append("file", file);
     latchRuleUploadBtn.disabled = true;
-    setStatus(latchRuleStatus, "正在上传…");
+    setStatus(latchRulePanelStatus, "正在上传…");
     try {
       const { response, data } = editingRuleGroupId
         ? await uploadLatchRuleFile(editingRuleGroupId, fd)
         : await createLatchRuleFromFile(fd);
-      if (!response.ok) { setStatus(latchRuleStatus, data.error || "上传失败", "error"); return; }
-      setStatus(latchRuleStatus, data.message || "上传成功", "success");
+      if (!response.ok) { setStatus(latchRulePanelStatus, data.error || "上传失败", "error"); return; }
+      setStatus(latchRulePanelStatus, data.message || "上传成功", "success");
       closeAllPanels();
       resetRuleForm();
       await loadAdminData();
-    } catch { setStatus(latchRuleStatus, "网络错误，请重试", "error"); }
+    } catch { setStatus(latchRulePanelStatus, "网络错误，请重试", "error"); }
     finally   { latchRuleUploadBtn.disabled = false; }
   });
 
@@ -1174,7 +1176,7 @@ function wireAdminEvents(): void {
 
   latchProfileSubmitBtn.addEventListener("click", async () => {
     const name = latchProfileNameInput.value.trim();
-    if (!name) { setStatus(latchProfileStatus, "请填写配置名称", "error"); return; }
+    if (!name) { setStatus(latchProfilePanelStatus, "请填写配置名称", "error"); return; }
     const proxyGroupIds = Array.from(
       latchProfileProxyCheckboxes.querySelectorAll<HTMLInputElement>("input[type=checkbox]:checked")
     ).map((cb) => cb.value);
@@ -1188,17 +1190,17 @@ function wireAdminEvents(): void {
       shareable: latchProfileShareableInput.checked,
     };
     latchProfileSubmitBtn.disabled = true;
-    setStatus(latchProfileStatus, editingProfileId ? "正在更新…" : "正在创建…");
+    setStatus(latchProfilePanelStatus, editingProfileId ? "正在更新…" : "正在创建…");
     try {
       const { response, data } = editingProfileId
         ? await updateLatchProfile(editingProfileId, payload)
         : await createLatchProfile(payload);
-      if (!response.ok) { setStatus(latchProfileStatus, data.error || "保存失败", "error"); return; }
-      setStatus(latchProfileStatus, data.message || "已保存", "success");
+      if (!response.ok) { setStatus(latchProfilePanelStatus, data.error || "保存失败", "error"); return; }
+      setStatus(latchProfilePanelStatus, data.message || "已保存", "success");
       closeAllPanels();
       resetProfileForm();
       await loadAdminData();
-    } catch { setStatus(latchProfileStatus, "网络错误，请重试", "error"); }
+    } catch { setStatus(latchProfilePanelStatus, "网络错误，请重试", "error"); }
     finally   { latchProfileSubmitBtn.disabled = false; }
   });
 
