@@ -230,11 +230,11 @@
       </div>
       <div class="lp-panel-body">
         <div class="lp-field">
-          <label class="lp-label">名称</label>
+          <label class="lp-label" for="latchProxyNameInput">名称</label>
           <input id="latchProxyNameInput" class="lp-input" type="text" maxlength="80" placeholder="例如 Tokyo-SS3" />
         </div>
         <div class="lp-field">
-          <label class="lp-label">类型</label>
+          <label class="lp-label" for="latchProxyTypeSelect">类型</label>
           <select id="latchProxyTypeSelect" class="lp-input">
             <option value="ss">ss</option>
             <option value="ss3">ss3</option>
@@ -245,14 +245,14 @@
           </select>
         </div>
         <div class="lp-field">
-          <label class="lp-label">从服务节点复制</label>
+          <label class="lp-label" for="latchProxyFromNodeSelect">从服务节点复制</label>
           <div class="lp-inline-row">
             <select id="latchProxyFromNodeSelect" class="lp-input"></select>
             <button id="latchProxyCopyNodeBtn" class="lp-manage-btn" type="button">Copy</button>
           </div>
         </div>
         <div class="lp-field" style="flex:1;">
-          <label class="lp-label">配置 JSON</label>
+          <label class="lp-label" for="latchProxyConfigInput">配置 JSON</label>
           <textarea id="latchProxyConfigInput" class="lp-input lp-textarea" rows="14"
             placeholder='{"server":"1.2.3.4","server_port":8388,"password":"secret","method":"aes-256-gcm"}'></textarea>
         </div>
@@ -271,7 +271,7 @@
       </div>
       <div class="lp-panel-body">
         <div class="lp-field">
-          <label class="lp-label">名称</label>
+          <label class="lp-label" for="latchRuleNameInput">名称</label>
           <input id="latchRuleNameInput" class="lp-input" type="text" maxlength="80" placeholder="例如 广告过滤" />
         </div>
         <div class="lp-source-tabs">
@@ -279,13 +279,13 @@
           <button id="latchRuleSourceFileBtn" class="lp-source-tab" type="button">上传文件</button>
         </div>
         <div id="latchRuleInlineSection" class="lp-field" style="flex:1;">
-          <label class="lp-label">内容</label>
+          <label class="lp-label" for="latchRuleContentInput">内容</label>
           <textarea id="latchRuleContentInput" class="lp-input lp-textarea" rows="16"
             placeholder="# 每行一条规则&#10;DOMAIN-SUFFIX,example.com,PROXY&#10;IP-CIDR,192.168.0.0/16,DIRECT"></textarea>
         </div>
         <div id="latchRuleFileSection" hidden>
           <div class="lp-field">
-            <label class="lp-label">选择文件</label>
+            <label class="lp-label" for="latchRuleFileInput">选择文件</label>
             <input id="latchRuleFileInput" class="lp-input" type="file" accept=".txt,.list,.conf" />
           </div>
           <button id="latchRuleUploadBtn" class="lp-add-btn" type="button" style="width:100%;margin-top:8px;justify-content:center;">上传文件</button>
